@@ -37,6 +37,7 @@ jobs:
         SPACETRACK_USERNAME: ${{ secrets.SPACETRACK_USERNAME }}
         SPACETRACK_PASSWORD: ${{ secrets.SPACETRACK_PASSWORD }}
       run: |
+          nix-shell --run "poetry install"
           nix-shell --run "bash ./get_data.sh && poetry run python3 build_starlink_stats.py"
             
     - name: Upload artifacts
