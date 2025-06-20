@@ -3,7 +3,37 @@
 Answers the question how many satellites Starlink has in orbit and how the number developed since the initial deployment in May 2019.
 Uses data from [Space-Track](https://www.space-track.org).
 
-![Starlink Satellite Numbers](./starlink-satellite-development.png)
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tbody>
+    <tr>
+      <td class="tg-0lax"><img src="./starlink-satellite-development.png" /></td>
+      <td class="tg-0lax"><img src="./project_kuiper-satellite-development.png" /></td>
+    </tr>
+    <tr>
+      <td class="tg-0lax">Starlink</td>
+      <td class="tg-0lax">Project Kuiper</td>
+    </tr>
+    <tr>
+      <td class="tg-0lax"><img src="./o3b-satellite-development.png" /></td>
+      <td class="tg-0lax"><img src="./oneweb-satellite-development.png" /></td>
+    </tr>
+    <tr>
+      <td class="tg-0lax">O3B</td>
+      <td class="tg-0lax">OneWeb</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## Citation
 
 ```bibtex
 @misc{Richter2025,
