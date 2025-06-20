@@ -40,7 +40,7 @@ jobs:
           nix-shell --run "bash ./get_data.sh && poetry run python3 build_starlink_stats.py"
             
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: starlink-stats-output

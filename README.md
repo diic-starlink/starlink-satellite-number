@@ -1,6 +1,6 @@
 # Starlink Satellite Number Development
 
-![Starlink Satellite Numbers](./starlink-satellite-development.pdf)
+[Starlink Satellite Numbers](./starlink-satellite-development.pdf)
 
 ```bibtex
 @misc{Richter2025,
