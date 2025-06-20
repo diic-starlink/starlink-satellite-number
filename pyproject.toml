@@ -1,0 +1,21 @@
+[project]
+name = "starlink"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Robert Richter",email = "robert.richter@hpi.de"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas (>=2.3.0,<3.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "requests (>=2.32.4,<3.0.0)",
+    "jupyterlab (>=4.4.3,<5.0.0)",
+    "matplotlib (>=3.10.3,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
