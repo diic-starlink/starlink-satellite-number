@@ -5,25 +5,27 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def load_starlink_data():
-    raw_data = json.load(open("./data.json"))
+def load_starlink_data(data_file):
+    raw_data = json.load(open(data_file))
     df = pd.DataFrame(data=raw_data)
 
     return df
 
 
-satcat_df = load_starlink_data()
-satcat_df.head()
+def accumulate_monthly_satellites(satcat_df):
+    satellite_numbers = {}
 
-satellite_numbers = {}
-START_YEAR = 2019
-START_MONTH = 5
+    earliest_launch = np.min(
+        [
+            datetime.strptime(launch_date, "%Y-%m-%d")
+            for launch_date in satcat_df["LAUNCH"].tolist()
+        ]
+    )
+    START_YEAR = earliest_launch.year
+    START_MONTH = earliest_launch.month
+    STOP_YEAR = datetime.now().year
+    STOP_MONTH = datetime.now().month
 
-STOP_YEAR = datetime.now().year
-STOP_MONTH = datetime.now().month
-
-
-def accumulate_monthly_satellites():
     for current_year in range(START_YEAR, STOP_YEAR + 1):
         active_satellites = 0
 
@@ -64,8 +66,10 @@ def accumulate_monthly_satellites():
 
         f.write(content)
 
+    return satellite_numbers
 
-def plot_satellite_development(data):
+
+def plot_satellite_development(data, constellation_name):
     # Convert to DataFrame for easier handling
     df = pd.DataFrame(list(data.items()), columns=["date", "value"])
     # Convert date strings to datetime objects
@@ -98,9 +102,10 @@ def plot_satellite_development(data):
     max_value = df["value"].max()
     max_date = df.loc[df["value"].idxmax(), "datetime"]
 
+    start_date = df.iloc[0]["datetime"].strftime("%B %Y")
     # Annotate start point
     plt.annotate(
-        f"May 2019",
+        start_date,
         xy=(df.iloc[0]["datetime"], start_value),
         xytext=(0, 20),
         textcoords="offset points",
@@ -121,9 +126,19 @@ def plot_satellite_development(data):
 
     # Tight layout to prevent label cutoff
     plt.tight_layout()
-    plt.savefig("starlink-satellite-development.pdf")
-    plt.savefig("starlink-satellite-development.png")
+    plt.savefig(
+        f"{constellation_name.replace(
+            " ", "_").lower()}-satellite-development.pdf"
+    )
+    plt.savefig(
+        f"{constellation_name.replace(
+            " ", "_").lower()}-satellite-development.png"
+    )
+    plt.clf()
 
 
-accumulate_monthly_satellites()
-plot_satellite_development(satellite_numbers)
+def analyze(constellation_name, data_file):
+    satcat_df = load_starlink_data(data_file)
+
+    satellite_numbers = accumulate_monthly_satellites(satcat_df)
+    plot_satellite_development(satellite_numbers, constellation_name)

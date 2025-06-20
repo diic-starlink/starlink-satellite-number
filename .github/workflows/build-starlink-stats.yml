@@ -50,7 +50,7 @@ jobs:
         SPACETRACK_PASSWORD: ${{ secrets.SPACETRACK_PASSWORD }}
       run: |
           bash ./get_data.sh
-          poetry run python3 build_starlink_stats.py
+          poetry run python3 main.py
             
     - name: Commit and push results
       if: github.ref == 'refs/heads/main'
