@@ -17,17 +17,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Install Nix
-      uses: cachix/install-nix-action@v23
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        nix_path: nixpkgs=channel:nixos-unstable
+        python-version: '3.13'  # Adjust version as needed
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
         
-    - name: Setup Nix cache
-      uses: cachix/cachix-action@v12
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
       with:
-        name: nix-community
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        skipPush: true
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+    - name: Install dependencies
+      run: poetry install
         
     - name: Make scripts executable
       run: chmod +x ./get_data.sh
@@ -37,8 +46,8 @@ jobs:
         SPACETRACK_USERNAME: ${{ secrets.SPACETRACK_USERNAME }}
         SPACETRACK_PASSWORD: ${{ secrets.SPACETRACK_PASSWORD }}
       run: |
-          nix-shell --run "poetry install --no-root"
-          nix-shell --run "bash ./get_data.sh && poetry run python3 build_starlink_stats.py"
+          bash ./get_data.sh
+          poetry run python3 build_starlink_stats.py"
             
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
