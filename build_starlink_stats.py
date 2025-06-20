@@ -44,12 +44,10 @@ def accumulate_monthly_satellites():
             )
 
             for i in range(0, len(satcat_df)):
-                launch_date = datetime.strptime(
-                    satcat_df["LAUNCH"][i], "%Y-%m-%d")
+                launch_date = datetime.strptime(satcat_df["LAUNCH"][i], "%Y-%m-%d")
 
                 if satcat_df["DECAY"][i]:
-                    decay_date = datetime.strptime(
-                        satcat_df["DECAY"][i], "%Y-%m-%d")
+                    decay_date = datetime.strptime(satcat_df["DECAY"][i], "%Y-%m-%d")
                 else:
                     decay_date = current_date + timedelta(days=1)
 
@@ -88,8 +86,7 @@ def plot_satellite_development(data):
     plt.ylabel("Number of Satellites", fontsize=12)
 
     # Format y-axis to show thousands with commas
-    plt.gca().yaxis.set_major_formatter(
-        plt.FuncFormatter(lambda x, p: f"{x:,.0f}"))
+    plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f"{x:,.0f}"))
     plt.grid(True, alpha=0.3, linestyle="--")
 
     # Rotate x-axis labels for better readability
@@ -125,6 +122,7 @@ def plot_satellite_development(data):
     # Tight layout to prevent label cutoff
     plt.tight_layout()
     plt.savefig("starlink-satellite-development.pdf")
+    plt.savefig("starlink-satellite-development.png")
 
 
 accumulate_monthly_satellites()
