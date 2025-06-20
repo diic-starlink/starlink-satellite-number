@@ -8,7 +8,7 @@
   url={https://github.com/diic-starlink/starlink-satellite-number},
   journal={GitHub}, publisher={Hasso Plattner Institute},
   author={Richter, Robert},
-  month={XX}
+  month={XX},
   year={202X}
 } 
 ```
